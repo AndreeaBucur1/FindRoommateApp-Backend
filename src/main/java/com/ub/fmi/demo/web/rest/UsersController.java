@@ -22,7 +22,7 @@ public class UsersController {
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @PostMapping("")
+    @PostMapping("/register")
     public void addUser(@RequestBody User user){
          userService.createUser(user);
     }

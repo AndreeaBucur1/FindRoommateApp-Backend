@@ -27,7 +27,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/users","/users/change-role/{id}","/login", "/register", "/forgot-password", "/forgot-password/reset-password", "/users/activate-account","/users/{id}")
+        http.authorizeRequests().antMatchers("/users/change-role/{id}","/login","users/register", "/register", "/forgot-password", "/forgot-password/reset-password", "/users/activate-account/{token}","/users/{id}")
                 .permitAll().anyRequest().authenticated().and()
                 .apply(new JwtConfigurer()).and().csrf().disable().exceptionHandling()
                 .authenticationEntryPoint(problemSupport).accessDeniedHandler(problemSupport).configure(http.cors().and());
