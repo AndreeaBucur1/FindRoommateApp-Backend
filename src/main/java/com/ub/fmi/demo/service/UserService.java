@@ -1,6 +1,7 @@
 package com.ub.fmi.demo.service;
 
 
+import com.ub.fmi.demo.domain.Role;
 import com.ub.fmi.demo.domain.User;
 
 import javax.mail.MessagingException;
@@ -26,5 +27,10 @@ public interface UserService {
 
     void changeRole(Long id, String role);
 
+    String updateImage(Long id, byte[] content, String extension);
 
+
+
+    Role getUserRole(String username);
 }
+

@@ -23,9 +23,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     @Transactional
     public boolean authenticate(String username, String password)  {
-        User user = userRepository.findByUsername(username).orElseThrow(() -> new com.ub.fmi.demo.problem.AuthenticationException());
+        User user = userRepository.findByUsername(username).orElse(null);
         if (user.getPassword().compareTo(password) != 0) {
-            throw new AuthenticationException();
+            return false;
         }
 //        if (!user.isEmailConfirmation()) {
 //            throw new UserNotActivatedException();

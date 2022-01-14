@@ -21,6 +21,9 @@ public class User {
 
     private String username;
 
+    @Column()
+    private String profilePhoto;
+
     @ManyToOne(cascade = CascadeType.ALL)
 //    @JoinTable()
     private Role role;
@@ -70,7 +73,13 @@ public class User {
         this.username = username;
     }
 
+    public String getProfilePhoto() {
+        return profilePhoto;
+    }
 
+    public void setProfilePhoto(String profilePhoto) {
+        this.profilePhoto = profilePhoto;
+    }
 
     public Long getId() {
         return id;

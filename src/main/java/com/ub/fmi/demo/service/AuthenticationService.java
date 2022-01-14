@@ -4,7 +4,7 @@ import javax.naming.AuthenticationException;
 
 public interface AuthenticationService {
 
-    boolean authenticate(String username, String password) throws AuthenticationException;
+    boolean authenticate(String username, String password);
 
 
 }

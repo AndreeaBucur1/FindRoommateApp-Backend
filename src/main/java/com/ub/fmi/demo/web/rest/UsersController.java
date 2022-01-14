@@ -1,6 +1,7 @@
 package com.ub.fmi.demo.web.rest;
 
 
+import com.ub.fmi.demo.domain.Role;
 import com.ub.fmi.demo.domain.User;
 import com.ub.fmi.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,7 @@ public class UsersController {
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/change-role/{id}")
     public void changeRole(@PathVariable("id") Long id,@RequestBody String[] roleName){
-        System.out.println(roleName[0]);
+        System.out.println("Role" + roleName[0]);
         userService.changeRole(id,roleName[0]);
     }
 
@@ -47,7 +48,21 @@ public class UsersController {
         userService.activateAccount(token[0]);
     }
 
- 
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("/role/{username}")
+    public Role getRole(@PathVariable("username") String username){
+        return userService.getUserRole(username);
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("/user/{username}")
+    public User user(@PathVariable("username") String username){
+        System.out.println(username);
+        return userService.getUserByUsername(username);
+    }
+
+
+
 
 
 }

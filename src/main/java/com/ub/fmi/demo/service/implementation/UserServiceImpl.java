@@ -1,5 +1,6 @@
 package com.ub.fmi.demo.service.implementation;
 
+import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import com.ub.fmi.demo.domain.Role;
 import com.ub.fmi.demo.domain.User;
 import com.ub.fmi.demo.repository.RoleRepository;
@@ -8,6 +9,7 @@ import com.ub.fmi.demo.service.UserService;
 import net.bytebuddy.utility.RandomString;
 import org.hibernate.event.spi.SaveOrUpdateEvent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -15,7 +17,11 @@ import org.springframework.stereotype.Service;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -124,6 +130,29 @@ public class UserServiceImpl implements UserService {
         user.setRole(roleRepository.findByName(role));
         userRepository.save(user);
     }
+
+    @Override
+    public Role getUserRole(String username) {
+        User user = userRepository.findByUsername(username).orElse(null);
+        if(user != null){
+            return user.getRole();
+        }
+        return null;
+    }
+
+
+
+    @Override
+    @Transactional
+    public String updateImage(Long id, byte[] content, String extension) {
+        User user = userRepository.findById(id).orElse(null);
+        String image = Base64.encode(content);
+        assert user != null;
+        user.setProfilePhoto(image);
+        userRepository.save(user);
+        return image;
+    }
+
 
 
 }
