@@ -6,7 +6,9 @@ import com.ub.fmi.demo.domain.User;
 import com.ub.fmi.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -60,6 +62,17 @@ public class UsersController {
         System.out.println(username);
         return userService.getUserByUsername(username);
     }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PutMapping("/{id}/image")
+    public String updateImage(@RequestParam MultipartFile imageFile, @PathVariable Long id) {
+        try {
+            return userService.updateImage(id, imageFile.getBytes(), imageFile.getOriginalFilename().substring(imageFile.getOriginalFilename().indexOf('.')));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 
 
