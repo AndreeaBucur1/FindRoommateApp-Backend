@@ -24,15 +24,13 @@ public class User {
     @Column()
     private String profilePhoto;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-//    @JoinTable()
-    private Role role;
+    private String role;
 
-    public Role getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(String role) {
         this.role = role;
     }
 

@@ -44,7 +44,7 @@ public class JwtTokenProvider {
 
         Map<String, String> tokenClaims = new HashMap<>();
 
-        String role = user.getRole().getName();
+        String role = user.getRole();
         tokenClaims.put("role", role);
 
 
