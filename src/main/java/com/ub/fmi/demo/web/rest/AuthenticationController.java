@@ -1,5 +1,6 @@
 package com.ub.fmi.demo.web.rest;
 
+import com.ub.fmi.demo.problem.AuthenticationException;
 import com.ub.fmi.demo.repository.UserRepository;
 import com.ub.fmi.demo.security.JwtTokenProvider;
 import com.ub.fmi.demo.service.AuthenticationService;
@@ -29,18 +30,19 @@ public class AuthenticationController {
     private UserService userService;
 
     @PostMapping("/login")
-    @CrossOrigin("http://localhost:3000")
-    public String login(@Valid @RequestBody LoginRequestDto loginRequestDto){
+    @CrossOrigin(origins = {"http://localhost:4200", "http://localhost:3000"})
+    public JwtTokenDto login(@Valid @RequestBody LoginRequestDto loginRequestDto){
         boolean isAuthenticated = authenticationService.authenticate(loginRequestDto.getUsername(),
                 loginRequestDto.getPassword());
 
         JwtTokenDto result = new JwtTokenDto();
         String token = JwtTokenProvider.createToken(userService.getUserByUsername(loginRequestDto.getUsername()));
+        result.setToken(token);
         if(isAuthenticated){
-            return token;
+            return result;
         }
         else{
-            return "Wrong credentials";
+            throw new AuthenticationException();
         }
     }
 

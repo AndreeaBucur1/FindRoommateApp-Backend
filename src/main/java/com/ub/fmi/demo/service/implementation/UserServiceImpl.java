@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
         String activationToken = RandomString.make(75);
         user.setActivationToken(activationToken);
 
-        String link = "http://localhost:3000/activate-account/" + activationToken;
+        String link = "http://localhost:4200/activate-account/" + activationToken;
         try {
             sendEmailForAccountActivation(user.getEmail(),link);
         } catch (MessagingException | UnsupportedEncodingException e) {
