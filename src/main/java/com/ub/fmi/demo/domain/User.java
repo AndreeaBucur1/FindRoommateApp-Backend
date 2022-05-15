@@ -26,6 +26,20 @@ public class User {
 
     private String role;
 
+    private boolean accountActivated;
+
+    private String activationToken;
+
+    private String resetPasswordToken;
+
+    public String getResetPasswordToken() {
+        return resetPasswordToken;
+    }
+
+    public void setResetPasswordToken(String resetPasswordToken) {
+        this.resetPasswordToken = resetPasswordToken;
+    }
+
     public String getRole() {
         return role;
     }
@@ -41,11 +55,6 @@ public class User {
     public void setAccountActivated(boolean accountActivated) {
         this.accountActivated = accountActivated;
     }
-
-    private boolean accountActivated;
-
-    private String activationToken;
-
 
     public boolean getAccountActivated() {
         return accountActivated;

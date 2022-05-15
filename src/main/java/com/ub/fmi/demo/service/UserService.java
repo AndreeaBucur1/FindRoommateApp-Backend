@@ -29,5 +29,9 @@ public interface UserService {
     String updateImage(Long id, byte[] content, String extension);
 
     String getUserRole(String username);
+
+    void generateResetPasswordToken(String email);
+
+    void resetPassword(String token, String password);
 }
 

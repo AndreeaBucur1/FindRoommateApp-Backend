@@ -12,6 +12,8 @@ public interface UserRepository extends JpaRepository<User,Long> {
     Optional<User> findByUsername(String username);
     Optional<User> findByActivationToken(String token);
     List<User> findAllByAccountActivatedTrue();
+    Optional<User> findByEmail(String email);
+    Optional<User> findByResetPasswordToken(String token);
 
     @Override
     void delete(User user);

@@ -128,6 +128,55 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
+    @Override
+    @Transactional
+    public void generateResetPasswordToken(String email) {
+     String resetPasswordToken = RandomString.make(75);
+     User user = userRepository.findByEmail(email).orElse(null);
+     if (user != null) {
+         user.setResetPasswordToken(resetPasswordToken);
+         userRepository.save(user);
+         try{
+             sendResetPasswordEmail(user.getEmail(), resetPasswordToken);
+         } catch (MessagingException e) {
+             throw new RuntimeException(e);
+         } catch (UnsupportedEncodingException e) {
+             throw new RuntimeException(e);
+         }
+
+     }
+    }
+
+    @Override
+    @Transactional
+    public void resetPassword(String token, String password) {
+        User user = userRepository.findByResetPasswordToken(token).orElse(null);
+        if (user != null) {
+            user.setPassword(password);
+            user.setResetPasswordToken(null);
+            userRepository.save(user);
+        }
+    }
+
+    public void sendResetPasswordEmail(String email, String resetPasswordToken) throws MessagingException, UnsupportedEncodingException {
+        System.out.println(email);
+        MimeMessage message = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+        helper.setFrom("findroommateapp@gmail.com","Find Roommate");
+        helper.setTo(email);
+        String link = "http://localhost:4200/reset-password/" + resetPasswordToken;
+
+        String subject = "Reset your password";
+
+        String content = "<p>Hello,</p>"
+                +"<p>Please access this link in order to reset your password:<p>"
+                + "<p><a href=\"" + link + "\">Reset password</a></p>"
+                + "<br>";
+
+        helper.setSubject(subject);
+        helper.setText(content,true);
+        javaMailSender.send(message);
+    }
 
 
     @Override

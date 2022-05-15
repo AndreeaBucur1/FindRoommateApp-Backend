@@ -37,7 +37,9 @@ public class AuthenticationController {
 
         JwtTokenDto result = new JwtTokenDto();
         String token = JwtTokenProvider.createToken(userService.getUserByUsername(loginRequestDto.getUsername()));
+        String role = userRepository.findByUsername(loginRequestDto.getUsername()).get().getRole();
         result.setToken(token);
+        result.setRole(role);
         if(isAuthenticated){
             return result;
         }
