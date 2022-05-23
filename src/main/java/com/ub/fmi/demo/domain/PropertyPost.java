@@ -17,7 +17,7 @@ public class PropertyPost {
     String propertyType;
 
     @Column
-    String propertyForSaleRent;
+    Boolean isForSale;
 
     @Column
     Integer numberOfRooms;
@@ -48,6 +48,10 @@ public class PropertyPost {
 
     @Column
     LocalDateTime creationDate;
+
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    private User user;
 
     public Long getId() {
         return id;
@@ -153,11 +157,11 @@ public class PropertyPost {
         this.creationDate = creationDate;
     }
 
-    public String getPropertyForSaleRent() {
-        return propertyForSaleRent;
+    public Boolean getIsForSale() {
+        return isForSale;
     }
 
-    public void setPropertyForSaleRent(String propertyForSaleRent) {
-        this.propertyForSaleRent = propertyForSaleRent;
+    public void setIsForSale(Boolean isForSale) {
+        this.isForSale = isForSale;
     }
 }

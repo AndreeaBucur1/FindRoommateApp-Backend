@@ -1,15 +1,19 @@
 package com.ub.fmi.demo.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Table
+@Table(name="user")
 public class User {
 
     @Id
     @GeneratedValue
-    private Long id;
+    @Column(name = "user_id")
+    private Long userId;
 
     private String firstName;
 
@@ -20,6 +24,10 @@ public class User {
     private String password;
 
     private String username;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private List<PropertyPost> propertyPosts;
 
     @Column()
     private String profilePhoto;
@@ -88,12 +96,12 @@ public class User {
         this.profilePhoto = profilePhoto;
     }
 
-    public Long getId() {
-        return id;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUserId(Long id) {
+        this.userId = id;
     }
 
     public String getFirstName() {

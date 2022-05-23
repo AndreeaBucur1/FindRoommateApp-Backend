@@ -24,6 +24,11 @@ public class PropertyPostServiceImpl implements PropertyPostService {
 
     @Override
     public List<PropertyPost> getRentPosts() {
-        return propertyPostRepository.findAllByPropertyForSaleRent("rent");
+        return propertyPostRepository.findAllByIsForSale(false);
+    }
+
+    @Override
+    public List<PropertyPost> getSalePosts() {
+        return propertyPostRepository.findAllByIsForSale(true);
     }
 }

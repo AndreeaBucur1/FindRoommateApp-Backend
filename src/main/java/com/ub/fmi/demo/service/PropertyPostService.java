@@ -8,4 +8,6 @@ public interface PropertyPostService {
     PropertyPost createPost(PropertyPost propertyPost);
 
     List<PropertyPost> getRentPosts();
+
+    List<PropertyPost> getSalePosts();
 }

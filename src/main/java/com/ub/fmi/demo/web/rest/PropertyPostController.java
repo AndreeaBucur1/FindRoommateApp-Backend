@@ -19,6 +19,9 @@ public class PropertyPostController {
         return propertyPostService.getRentPosts();
     }
 
+    @GetMapping("/sale")
+    public  List<PropertyPost> getSales() { return propertyPostService.getSalePosts();}
+
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping()
     public PropertyPost createPropertyPost(@RequestBody PropertyPost propertyPost){
