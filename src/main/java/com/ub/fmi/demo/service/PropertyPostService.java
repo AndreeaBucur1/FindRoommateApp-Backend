@@ -10,4 +10,10 @@ public interface PropertyPostService {
     List<PropertyPost> getRentPosts();
 
     List<PropertyPost> getSalePosts();
+
+    PropertyPost getPropertyPostById(Long id);
+
+    List<PropertyPost> getPropertyPostByUsername(String username);
+
+    void deleteById(Long id);
 }

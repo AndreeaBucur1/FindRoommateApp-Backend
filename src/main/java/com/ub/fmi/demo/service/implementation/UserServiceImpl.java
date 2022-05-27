@@ -4,6 +4,7 @@ import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import com.ub.fmi.demo.domain.User;
 import com.ub.fmi.demo.repository.UserRepository;
 import com.ub.fmi.demo.service.UserService;
+import com.ub.fmi.demo.web.rest.dto.UserDTO;
 import net.bytebuddy.utility.RandomString;
 import org.hibernate.event.spi.SaveOrUpdateEvent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,13 +37,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public User getById(Long id) {
-        return userRepository.findById(id).orElse(null);
+    public UserDTO getById(Long id) {
+        return userToUserDTO(userRepository.findById(id).orElse(null));
     }
 
     @Override
     @Transactional
-    public User createUser(User user) {
+    public UserDTO createUser(User user) {
 
         user.setAccountActivated(false);
         user.setRole("USER");
@@ -55,7 +56,7 @@ public class UserServiceImpl implements UserService {
         } catch (MessagingException | UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        return userRepository.save(user);
+        return userToUserDTO(userRepository.save(user));
 
     }
 
@@ -68,14 +69,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public User updateUser(User user) {
-        return userRepository.save(user);
+    public UserDTO updateUser(User user) {
+        return userToUserDTO(userRepository.save(user));
     }
 
     @Override
     @Transactional
-    public User getUserByUsername(String username) {
-        return userRepository.findByUsername(username).orElse(null);
+    public UserDTO getUserByUsername(String username) {
+        return userToUserDTO(userRepository.findByUsername(username).orElse(null));
     }
 
     @Override
@@ -156,6 +157,11 @@ public class UserServiceImpl implements UserService {
             user.setResetPasswordToken(null);
             userRepository.save(user);
         }
+    }
+
+    @Override
+    public UserDTO userToUserDTO(User user) {
+        return new UserDTO(user.getUserId(), user.getEmail(), user.getFirstName(), user.getLastName(), user.getProfilePhoto(), user.getRole(), user.getUsername(), user.getPhoneNumber(), user.getGender());
     }
 
     public void sendResetPasswordEmail(String email, String resetPasswordToken) throws MessagingException, UnsupportedEncodingException {

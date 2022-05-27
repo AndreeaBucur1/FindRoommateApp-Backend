@@ -10,4 +10,6 @@ import java.util.List;
 @Repository
 public interface PropertyPostRepository extends JpaRepository<PropertyPost, Long> {
     List<PropertyPost> findAllByIsForSale(Boolean isForSale);
+
+    List<PropertyPost> findAllByUser_Username(String username);
 }

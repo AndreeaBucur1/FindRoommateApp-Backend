@@ -1,6 +1,7 @@
 package com.ub.fmi.demo.security;
 
 import com.ub.fmi.demo.domain.User;
+import com.ub.fmi.demo.web.rest.dto.UserDTO;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -40,7 +41,7 @@ public class JwtTokenProvider {
         JwtTokenProvider.key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(base64Secret));
     }
 
-    public static String createToken(User user) {
+    public static String createToken(UserDTO user) {
 
         Map<String, String> tokenClaims = new HashMap<>();
 

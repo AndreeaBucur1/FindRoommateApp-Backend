@@ -2,6 +2,7 @@ package com.ub.fmi.demo.service;
 
 
 import com.ub.fmi.demo.domain.User;
+import com.ub.fmi.demo.web.rest.dto.UserDTO;
 
 import javax.mail.MessagingException;
 import java.io.UnsupportedEncodingException;
@@ -10,15 +11,15 @@ import java.util.List;
 public interface UserService {
     List<User> getUsers();
 
-    User getById(Long id);
+    UserDTO getById(Long id);
 
-    User createUser(User user);
+    UserDTO createUser(User user);
 
     void deleteUser(Long id);
 
-    User updateUser(User user);
+    UserDTO updateUser(User user);
 
-    User getUserByUsername(String username);
+    UserDTO getUserByUsername(String username);
 
     void sendEmailForAccountActivation(String email, String link) throws MessagingException, UnsupportedEncodingException;
 
@@ -33,5 +34,7 @@ public interface UserService {
     void generateResetPasswordToken(String email);
 
     void resetPassword(String token, String password);
+
+    UserDTO userToUserDTO(User user);
 }
 

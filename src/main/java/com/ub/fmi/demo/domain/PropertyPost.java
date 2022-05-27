@@ -38,6 +38,9 @@ public class PropertyPost {
     Boolean hasElevator;
 
     @Column
+    String city;
+
+    @Column
     Integer buildYear;
 
     @Column
@@ -71,6 +74,22 @@ public class PropertyPost {
 
     public String getPropertyType() {
         return propertyType;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public void setPropertyType(String propertyType) {
@@ -163,5 +182,26 @@ public class PropertyPost {
 
     public void setIsForSale(Boolean isForSale) {
         this.isForSale = isForSale;
+    }
+
+    @Override
+    public String toString() {
+        return "PropertyPost{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", propertyType='" + propertyType + '\'' +
+                ", isForSale=" + isForSale +
+                ", numberOfRooms=" + numberOfRooms +
+                ", numberOfBathrooms=" + numberOfBathrooms +
+                ", floor=" + floor +
+                ", surface=" + surface +
+                ", hasParkingSpot=" + hasParkingSpot +
+                ", hasElevator=" + hasElevator +
+                ", buildYear=" + buildYear +
+                ", price=" + price +
+                ", description='" + description + '\'' +
+                ", creationDate=" + creationDate +
+                ", user=" + user +
+                '}';
     }
 }

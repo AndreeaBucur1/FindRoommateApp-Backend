@@ -2,6 +2,7 @@ package com.ub.fmi.demo.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ub.fmi.demo.utils.GenderEnum;
 
 import javax.persistence.*;
 import java.util.List;
@@ -24,6 +25,32 @@ public class User {
     private String password;
 
     private String username;
+
+    private String phoneNumber;
+
+    @Column()
+    private GenderEnum gender;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "roommate_post_id")
+    private RoommatePost roommatePost;
+
+
+    public GenderEnum getGender() {
+        return gender;
+    }
+
+    public void setGender(GenderEnum gender) {
+        this.gender = gender;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
     @JsonIgnore
     @OneToMany(mappedBy = "user")
@@ -134,5 +161,21 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<PropertyPost> getPropertyPosts() {
+        return propertyPosts;
+    }
+
+    public void setPropertyPosts(List<PropertyPost> propertyPosts) {
+        this.propertyPosts = propertyPosts;
+    }
+
+    public RoommatePost getRoommatePost() {
+        return roommatePost;
+    }
+
+    public void setRoommatePost(RoommatePost roommatePost) {
+        this.roommatePost = roommatePost;
     }
 }

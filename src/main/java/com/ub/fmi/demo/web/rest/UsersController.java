@@ -4,6 +4,7 @@ import com.ub.fmi.demo.domain.User;
 import com.ub.fmi.demo.service.UserService;
 import com.ub.fmi.demo.web.rest.dto.ResetPasswordDTO;
 import com.ub.fmi.demo.web.rest.dto.ResetPasswordRequest;
+import com.ub.fmi.demo.web.rest.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -68,7 +69,7 @@ public class UsersController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/user/{username}")
-    public User user(@PathVariable("username") String username){
+    public UserDTO user(@PathVariable("username") String username){
         return userService.getUserByUsername(username);
     }
 
