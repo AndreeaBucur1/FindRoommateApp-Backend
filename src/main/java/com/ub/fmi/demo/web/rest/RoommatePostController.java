@@ -2,6 +2,7 @@ package com.ub.fmi.demo.web.rest;
 
 import com.ub.fmi.demo.domain.RoommatePost;
 import com.ub.fmi.demo.service.RoommatePostService;
+import com.ub.fmi.demo.web.rest.dto.RoommatePostDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +17,7 @@ public class RoommatePostController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("")
-    public List<RoommatePost> findAllPosts() {
+    public List<RoommatePostDTO> findAllPosts() {
         return roommatePostService.findAllPosts();
     }
 

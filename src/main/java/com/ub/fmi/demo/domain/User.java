@@ -31,7 +31,7 @@ public class User {
     @Column()
     private GenderEnum gender;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "roommate_post_id")
     private RoommatePost roommatePost;
 

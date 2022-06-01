@@ -1,5 +1,6 @@
 package com.ub.fmi.demo.web.rest.dto;
 
+import com.ub.fmi.demo.domain.RoommatePost;
 import com.ub.fmi.demo.utils.GenderEnum;
 
 public class UserDTO {
@@ -22,7 +23,9 @@ public class UserDTO {
 
     private GenderEnum gender;
 
-    public UserDTO(Long id, String email, String firstName, String lastName, String profilePhoto, String role, String username, String phoneNumber, GenderEnum gender) {
+    private RoommatePost roommatePost;
+
+    public UserDTO(Long id, String email, String firstName, String lastName, String profilePhoto, String role, String username, String phoneNumber, GenderEnum gender, RoommatePost roommatePost) {
         this.userId = id;
         this.email = email;
         this.firstName = firstName;
@@ -32,6 +35,15 @@ public class UserDTO {
         this.username = username;
         this.phoneNumber = phoneNumber;
         this.gender = gender;
+        this.roommatePost = roommatePost;
+    }
+
+    public RoommatePost getRoommatePost() {
+        return roommatePost;
+    }
+
+    public void setRoommatePost(RoommatePost roommatePost) {
+        this.roommatePost = roommatePost;
     }
 
     public Long getUserId() {

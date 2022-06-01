@@ -161,7 +161,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO userToUserDTO(User user) {
-        return new UserDTO(user.getUserId(), user.getEmail(), user.getFirstName(), user.getLastName(), user.getProfilePhoto(), user.getRole(), user.getUsername(), user.getPhoneNumber(), user.getGender());
+        return new UserDTO(user.getUserId(), user.getEmail(), user.getFirstName(), user.getLastName(), user.getProfilePhoto(), user.getRole(), user.getUsername(), user.getPhoneNumber(), user.getGender(), user.getRoommatePost());
     }
 
     public void sendResetPasswordEmail(String email, String resetPasswordToken) throws MessagingException, UnsupportedEncodingException {
