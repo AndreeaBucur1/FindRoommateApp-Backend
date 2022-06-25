@@ -27,9 +27,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         if (user.getPassword().compareTo(password) != 0) {
             return false;
         }
-//        if (!user.isEmailConfirmation()) {
-//            throw new UserNotActivatedException();
-//        }
+        if (!user.isAccountActivated()) {
+            return false;
+        }
 
         return true;
     }

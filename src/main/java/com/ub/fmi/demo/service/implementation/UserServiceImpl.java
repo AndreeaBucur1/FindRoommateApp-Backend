@@ -1,7 +1,10 @@
 package com.ub.fmi.demo.service.implementation;
 
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
+import com.ub.fmi.demo.domain.PropertyPost;
 import com.ub.fmi.demo.domain.User;
+import com.ub.fmi.demo.repository.PropertyPostRepository;
+import com.ub.fmi.demo.repository.RoommatePostRepository;
 import com.ub.fmi.demo.repository.UserRepository;
 import com.ub.fmi.demo.service.UserService;
 import com.ub.fmi.demo.web.rest.dto.UserDTO;
@@ -28,6 +31,12 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     JavaMailSender javaMailSender;
+
+    @Autowired
+    PropertyPostRepository propertyPostRepository;
+
+    @Autowired
+    RoommatePostRepository roommatePostRepository;
 
     @Override
     @Transactional
@@ -64,6 +73,11 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void deleteUser(Long id) {
         User user = userRepository.getById(id);
+        if (user.getRoommatePost() != null) {
+            roommatePostRepository.delete(user.getRoommatePost());
+        }
+        List<PropertyPost> propertyPosts = propertyPostRepository.findAllByUser_Username(user.getUsername());
+        propertyPostRepository.deleteAll(propertyPosts);
         userRepository.delete(user);
     }
 

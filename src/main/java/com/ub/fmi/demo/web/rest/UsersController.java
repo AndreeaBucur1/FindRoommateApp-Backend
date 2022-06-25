@@ -6,6 +6,8 @@ import com.ub.fmi.demo.web.rest.dto.ResetPasswordDTO;
 import com.ub.fmi.demo.web.rest.dto.ResetPasswordRequest;
 import com.ub.fmi.demo.web.rest.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,6 +24,7 @@ public class UsersController {
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("")
     public List<User> getAllUsers() {
+        System.out.println(userService.getUsers());
         return userService.getUsers();
     }
 
@@ -45,8 +48,9 @@ public class UsersController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable("id") Long id) {
-        userService.deleteUser(id);
+    @Transactional
+    public void deleteUser(@PathVariable("id") String id) {
+        userService.deleteUser(new Long(id));
     }
     
     @CrossOrigin(origins = "http://localhost:4200")

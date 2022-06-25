@@ -30,12 +30,9 @@ public class AuthenticationController {
     private UserService userService;
 
     @PostMapping("/login")
-    @CrossOrigin(origins = {"http://localhost:4200", "http://localhost:3000"})
+    @CrossOrigin(origins = {"http://localhost:4200"})
     public JwtTokenDto login(@Valid @RequestBody LoginRequestDto loginRequestDto){
-        System.out.println(loginRequestDto);
-        boolean isAuthenticated = authenticationService.authenticate(loginRequestDto.getUsername(),
-                loginRequestDto.getPassword());
-
+        boolean isAuthenticated = authenticationService.authenticate(loginRequestDto.getUsername(), loginRequestDto.getPassword());
         JwtTokenDto result = new JwtTokenDto();
         String token = JwtTokenProvider.createToken(userService.getUserByUsername(loginRequestDto.getUsername()));
         String role = userRepository.findByUsername(loginRequestDto.getUsername()).get().getRole();
