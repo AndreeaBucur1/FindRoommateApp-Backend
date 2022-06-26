@@ -20,4 +20,6 @@ public interface PropertyPostService {
     String uploadImage(Long id, byte[] bytes, String substring);
 
     String uploadMainImage(Long id, byte[] bytes, String substring);
+
+    List<String> getPhotos(Long propertyPostId);
 }

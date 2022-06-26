@@ -3,6 +3,7 @@ package com.ub.fmi.demo.service.implementation;
 import com.ub.fmi.demo.domain.Photo;
 import com.ub.fmi.demo.domain.PropertyPost;
 import com.ub.fmi.demo.domain.User;
+import com.ub.fmi.demo.repository.PhotoRepository;
 import com.ub.fmi.demo.repository.PropertyPostRepository;
 import com.ub.fmi.demo.repository.UserRepository;
 import com.ub.fmi.demo.service.PropertyPostService;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -23,6 +25,9 @@ public class PropertyPostServiceImpl implements PropertyPostService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PhotoRepository photoRepository;
 
     @Override
     public PropertyPost createPost(PropertyPost propertyPost) {
@@ -61,12 +66,9 @@ public class PropertyPostServiceImpl implements PropertyPostService {
         PropertyPost propertyPost = propertyPostRepository.findById(id).orElse(null);
         String image = Base64.encode(bytes);
         if (propertyPost != null) {
-            Photo photo = new Photo(image);
-            List<Photo> photos = propertyPost.getPhotos();
-            photos.add(photo);
-            propertyPost.setPhotos(photos);
+            Photo photo = new Photo(image, propertyPost);
+            photoRepository.save(photo);
         }
-        propertyPostRepository.save(propertyPost);
         return image;
     }
 
@@ -79,5 +81,15 @@ public class PropertyPostServiceImpl implements PropertyPostService {
         }
         propertyPostRepository.save(propertyPost);
         return image;
+    }
+
+    @Override
+    public List<String> getPhotos(Long propertyPostId) {
+        PropertyPost propertyPost = propertyPostRepository.findById(propertyPostId).orElse(null);
+        if (propertyPost != null) {
+            List<Photo> photos = photoRepository.findAllByPropertyPost(propertyPost);
+            return photos.stream().map(Photo::getPhoto).collect(Collectors.toList());
+        }
+        return null;
     }
 }

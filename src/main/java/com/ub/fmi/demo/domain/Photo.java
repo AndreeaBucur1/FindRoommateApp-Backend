@@ -7,6 +7,9 @@ import javax.persistence.*;
 public class Photo {
 
     @Id
+    @GeneratedValue
+    private Long id;
+
     private String photo;
 
     @ManyToOne
@@ -28,6 +31,8 @@ public class Photo {
     public Photo(String photo) {
         this.photo = photo;
     }
+
+
 
     public Photo(String photo, PropertyPost propertyPost) {
         this.photo = photo;

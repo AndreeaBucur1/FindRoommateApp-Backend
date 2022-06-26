@@ -58,8 +58,6 @@ public class PropertyPostController {
     @PutMapping("/{id}/image")
     public String uploadImage(@RequestParam MultipartFile imageFile, @PathVariable Long id) {
         try {
-            System.out.println("image file ");
-            System.out.println(imageFile);
             return propertyPostService.uploadImage(id, imageFile.getBytes(), imageFile.getOriginalFilename().substring(imageFile.getOriginalFilename().indexOf('.')));
         } catch (IOException e) {
             System.out.println("Error");
@@ -76,6 +74,13 @@ public class PropertyPostController {
             System.out.println("Error");
             throw new RuntimeException(e);
         }
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/get-photos/{id}")
+    public List<String> getPhotos(@PathVariable("id") Long propertyPostId) {
+        System.out.println(propertyPostId);
+        return propertyPostService.getPhotos(propertyPostId);
     }
 
 
