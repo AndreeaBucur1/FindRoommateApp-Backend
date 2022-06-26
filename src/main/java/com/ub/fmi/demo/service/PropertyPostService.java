@@ -16,4 +16,8 @@ public interface PropertyPostService {
     List<PropertyPost> getPropertyPostByUsername(String username);
 
     void deleteById(Long id);
+
+    String uploadImage(Long id, byte[] bytes, String substring);
+
+    String uploadMainImage(Long id, byte[] bytes, String substring);
 }

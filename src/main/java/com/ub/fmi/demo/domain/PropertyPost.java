@@ -1,7 +1,10 @@
 package com.ub.fmi.demo.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name="property_post")
@@ -52,9 +55,40 @@ public class PropertyPost {
     @Column
     LocalDateTime creationDate;
 
+    @Column
+    String mainImage;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "propertyPost")
+    private List<Photo> photos;
+
+    public String getMainImage() {
+        return mainImage;
+    }
+
+    public void setMainImage(String mainImage) {
+        this.mainImage = mainImage;
+    }
+
     @ManyToOne
     @JoinColumn(name = "userId")
     private User user;
+
+    public Boolean getForSale() {
+        return isForSale;
+    }
+
+    public void setForSale(Boolean forSale) {
+        isForSale = forSale;
+    }
+
+    public List<Photo> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(List<Photo> photos) {
+        this.photos = photos;
+    }
 
     public Long getId() {
         return id;

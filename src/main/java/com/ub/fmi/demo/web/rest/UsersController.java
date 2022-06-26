@@ -81,15 +81,13 @@ public class UsersController {
     @PutMapping("/{id}/image")
     public String updateImage(@RequestParam MultipartFile imageFile, @PathVariable Long id) {
         try {
+            System.out.println("image file ");
+            System.out.println(imageFile);
             return userService.updateImage(id, imageFile.getBytes(), imageFile.getOriginalFilename().substring(imageFile.getOriginalFilename().indexOf('.')));
         } catch (IOException e) {
+            System.out.println("Error");
             throw new RuntimeException(e);
         }
     }
-
-
-
-
-
 
 }

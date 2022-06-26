@@ -3,6 +3,7 @@ package com.ub.fmi.demo.domain;
 import com.ub.fmi.demo.utils.GenderEnum;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="roommate_post")
@@ -105,6 +106,7 @@ public class RoommatePost {
 
     @Column
     private String description;
+
 
     public Long getRoommatePostId() {
         return roommatePostId;

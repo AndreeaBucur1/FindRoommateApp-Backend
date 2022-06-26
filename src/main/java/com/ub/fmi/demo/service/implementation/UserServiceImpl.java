@@ -204,12 +204,11 @@ public class UserServiceImpl implements UserService {
     public String updateImage(Long id, byte[] content, String extension) {
         User user = userRepository.findById(id).orElse(null);
         String image = Base64.encode(content);
-        assert user != null;
-        user.setProfilePhoto(image);
+        if (user!=null) {
+            user.setProfilePhoto(image);
+        }
         userRepository.save(user);
         return image;
     }
-
-
 
 }

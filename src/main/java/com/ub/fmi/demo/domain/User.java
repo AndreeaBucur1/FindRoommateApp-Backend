@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ub.fmi.demo.utils.GenderEnum;
 
 import javax.persistence.*;
+import java.sql.Blob;
 import java.util.List;
 
 @Entity
